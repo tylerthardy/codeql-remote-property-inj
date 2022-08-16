@@ -1,5 +1,5 @@
+/* eslint-disable prettier/prettier */
 import { Body, Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
 export class RequestBody {
   theUserInput: string;
@@ -8,10 +8,14 @@ export class RequestBody {
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get('something')
-  getSomething(@Body() body: RequestBody): void {
-    this.appService.doSomething(body);
+  @Get('vulnerability')
+  vulnerable(@Body() body: RequestBody): void {
+    const facts: Record<string, string> = {};
+    facts[body.theUserInput] = body.anotherUserInput;
+  }
+  @Get('not-vulnerability')
+  notVulnerable(@Body() body: RequestBody): void {
+    const facts: Record<string, string> = {};
+    facts[body.theUserInput] = body.anotherUserInput;
   }
 }
